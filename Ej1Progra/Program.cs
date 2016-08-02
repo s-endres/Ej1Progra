@@ -1,4 +1,5 @@
-﻿using Ej1Progra.Logic;
+﻿using Ej1Progra.BD;
+using Ej1Progra.Logic;
 using Ej1Progra.UI;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,11 @@ namespace Ej1Progra
         static UIMenuCuenta g_objMenuC = new UIMenuCuenta();
         static Gestor g_objGestor = new Gestor();
         static bool g_adminLoginActive = true;
+        
         static void Main(string[] args)
         {
+            DataInsertion objDataInsertion = new DataInsertion();
+            objDataInsertion.insertMyData(g_objGestor);
             showBienvenido();
 
             string option = "";
@@ -140,18 +144,22 @@ namespace Ej1Progra
         public static void doOptionSix()
         {
             bool result = clientLogIn();
-            if (result) { 
-                string option = g_objMenuC.showMenu();
+            if (result) {
+                string option = "";
                 do
                 {
+                    option = g_objMenuC.showMenu();
+
+                    string msg = "";
+                    string accountId = "";
                     switch (option)
                     {
                         case "1":
                             Console.Write("Ingrese el ID de la cuenta: ");
-                            var accountId = Console.ReadLine();
+                            accountId = Console.ReadLine();
                             Console.Write("Ingrese el monto a retirar: ");
                             var amountToRetire = Console.ReadLine();
-                            string msg = g_objGestor.retireAmountFromAccount(accountId, double.Parse(amountToRetire));
+                            msg = g_objGestor.retireAmountFromAccount(accountId, double.Parse(amountToRetire));
 
                             if (msg == "")
                                 msg = "No se encontro la cuenta";
@@ -160,16 +168,88 @@ namespace Ej1Progra
 
                             break;
                         case "2":
+                            Console.Write("Ingrese el ID de la cuenta: ");
+                            accountId = Console.ReadLine();
+                            Console.Write("Ingrese el monto a pagar: ");
+                            var amountToPay = Console.ReadLine();
+                            msg = g_objGestor.payAmountFromAccount(accountId, double.Parse(amountToPay));
 
+                            if (msg == "")
+                                msg = "No se encontro la cuenta";
+                            Console.WriteLine();
+                            Console.WriteLine(msg);
                             break;
                         case "3":
+                            Console.Write("Ingrese el ID de la cuenta: ");
+                            accountId = Console.ReadLine();
+                            Console.Write("Ingrese el monto de la compra: ");
+                            var amountPurchase = Console.ReadLine();
+                            msg = g_objGestor.purchaseFromAccount(accountId, double.Parse(amountPurchase));
+
+                            if (msg == "")
+                                msg = "No se encontro la cuenta";
+                            Console.WriteLine();
+                            Console.WriteLine(msg);
+
                             break;
                         case "4":
+                            Console.Write("Ingrese el ID de la cuenta: ");
+                            accountId = Console.ReadLine();
+                            msg = g_objGestor.consultarSaldoeFromAccount(accountId);
+
+                            if (msg == "")
+                                msg = "No se encontro la cuenta";
+                            Console.WriteLine();
+                            Console.WriteLine(msg);
                             break;
                         case "5":
+                            Console.Write("Ingrese el ID de la cuenta: ");
+                            accountId = Console.ReadLine();
+                            List<string> transaccionesMsg = g_objGestor.consultarTransaccionesFromAccount(accountId);
+
+                            Console.WriteLine();
+                            if (transaccionesMsg == null) { 
+                                msg = "No se encontro la cuenta";
+                                Console.WriteLine(msg);
+                            }
+                            else if (transaccionesMsg.Count <= 0)
+                            {
+                                msg = "La cuenta no tiene transacciones";
+                                Console.WriteLine(msg);
+                            }
+                            else
+                            {
+                                foreach(var msj in transaccionesMsg)
+                                {
+                                    Console.WriteLine(msj);
+                                }
+                            }
                             break;
                         case "6":
-                            Console.WriteLine("Case 6");
+                            Console.Write("Ingrese la contrasenna vieja: ");
+                            var oldPassword = Console.ReadLine();
+
+                            Console.Write("Ingrese la contrasenna nueva: ");
+                            var newPassword = Console.ReadLine();
+
+                            Console.Write("Repita la contrasenna nueva: ");
+                            var rNewPassword = Console.ReadLine();
+
+                            Console.WriteLine();//for space
+
+                            if (newPassword == rNewPassword)
+                            {
+                                result = g_objGestor.changePassword(oldPassword, newPassword);
+                                if (result)
+                                    Console.WriteLine("La contrasenna fue cambiada con exito");
+                                else
+                                    Console.WriteLine("La contrasenna vieja no es correcta");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Las contrasennas nuevas no coinciden");
+                            }
+
                             break;
                         case "7":
                             Console.WriteLine("Saliendo del menu de cuentas..");
