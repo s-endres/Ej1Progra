@@ -139,35 +139,70 @@ namespace Ej1Progra
 
         public static void doOptionSix()
         {
-            string option = g_objMenuC.showMenu();
+            bool result = clientLogIn();
+            if (result) { 
+                string option = g_objMenuC.showMenu();
+                do
+                {
+                    switch (option)
+                    {
+                        case "1":
+                            Console.Write("Ingrese el ID de la cuenta: ");
+                            var accountId = Console.ReadLine();
+                            Console.Write("Ingrese el monto a retirar: ");
+                            var amountToRetire = Console.ReadLine();
+                            string msg = g_objGestor.retireAmountFromAccount(accountId, double.Parse(amountToRetire));
+
+                            if (msg == "")
+                                msg = "No se encontro la cuenta";
+                            Console.WriteLine();
+                            Console.WriteLine(msg);
+
+                            break;
+                        case "2":
+
+                            break;
+                        case "3":
+                            break;
+                        case "4":
+                            break;
+                        case "5":
+                            break;
+                        case "6":
+                            Console.WriteLine("Case 6");
+                            break;
+                        case "7":
+                            Console.WriteLine("Saliendo del menu de cuentas..");
+                            break;
+                        default:
+                            Console.WriteLine("Opcion erronea");
+                            break;
+                    }
+                } while (option != "7");
+            }
+        }
+
+        public static bool clientLogIn()
+        {
+            bool result = false;
             do
             {
-                switch (option)
-                {
-                    case "1":
-                        Console.Write("Cliente Id: ");
-                        var amountToRetire = Console.ReadLine();
-                        g_objGestor.retireAmountFromAccount(double.Parse(amountToRetire));
-                        break;
-                    case "2":
-                        break;
-                    case "3":
-                        break;
-                    case "4":
-                        break;
-                    case "5":
-                        break;
-                    case "6":
-                        Console.WriteLine("Case 6");
-                        break;
-                    case "7":
-                        Console.WriteLine("Saliendo del menu de cuentas..");
-                        break;
-                    default:
-                        Console.WriteLine("Opcion erronea");
-                        break;
-                }
-            } while (option != "7");
+                Console.Write("(Inserte -1 para salir) ");
+                Console.Write("Cliente Id: ");
+                var amountToRetire = Console.ReadLine();
+                
+                if (amountToRetire == "-1")
+                    return false;
+
+                Console.Write("Cliente Password: ");
+                var clientPassword = Console.ReadLine();
+
+                result = g_objGestor.validateClientLogIn(amountToRetire, clientPassword);
+
+
+            } while (result == false);
+
+            return true;
         }
 
 

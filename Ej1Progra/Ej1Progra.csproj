@@ -46,6 +46,7 @@
     <Compile Include="Logic\Cuenta.cs" />
     <Compile Include="Logic\Gestor.cs" />
     <Compile Include="Logic\Cliente.cs" />
+    <Compile Include="Logic\Transaccion.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\UIMenuCuenta.cs" />

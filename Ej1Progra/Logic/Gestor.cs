@@ -10,6 +10,7 @@ namespace Ej1Progra.Logic
     {
         List<Cliente> Clientes = new List<Cliente>();
         Cliente Admin = new Cliente(999, "Admin", "AdminA", 0);
+        Cliente SessionCliente;
         public bool registrarCuenta(int pId, string pNombre, string pApellido, int pTelefono, double? pCredito)
         {
             bool result = false;
@@ -120,11 +121,48 @@ namespace Ej1Progra.Logic
             return false;
         }
 
-        public void retireAmountFromAccount(double pAmount)
+        public bool validateClientLogIn(string pClientId, string pCPassword)
         {
-
+            foreach (var cliente in Clientes)
+            {
+                if (cliente.PersonaId == int.Parse(pClientId) && cliente.Contrasenna == pCPassword)
+                {
+                    SessionCliente = cliente;
+                    return true;
+                }
+            }
+            return false;
         }
 
+        public string retireAmountFromAccount(string pAccountId, double pAmount)
+        {
+            string msg = "";
+            foreach (var cuenta in SessionCliente.Cuentas)
+            {
+                if (cuenta.CuentaId == pAccountId)
+                {
+                    if (cuenta.Saldo < pAmount)
+                    {
+                        msg = "Su monto es mayor al saldo disponible";
+                    }
+                    else
+                    {
+                        cuenta.Saldo = cuenta.Saldo - pAmount;
+                        double comisionUnoPCT = cuenta.Credito * 1 / 100;
+                        cuenta.Saldo = cuenta.Saldo - comisionUnoPCT;
+
+                        Transaccion objTransaccion = new Transaccion(DateTime.Now,"Retiro",pAmount);
+                        cuenta.addTransaccion(objTransaccion);
+
+                        var retiroCount = cuenta.Transacciones.Count(t => t.Tipo == "Retiro");
+                        double saldoAdeudado = cuenta.Credito - cuenta.Saldo;
+
+                        msg = DateTime.Now.ToString()+" Retiro-"+retiroCount+" Monto:"+pAmount+" Tiene un saldo adeudado de:"+ saldoAdeudado;
+                    }
+                }
+            }
+            return msg; 
+        }
 
 
 

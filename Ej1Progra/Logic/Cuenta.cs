@@ -10,8 +10,9 @@ namespace Ej1Progra.Logic
     class Cuenta
     {
         public string CuentaId { get; set; }
-        public double? Credito { get; set; }
-        public List<string> Transacciones { get; set; }
+        public double Credito { get; set; }
+        public double Saldo { get; set; }
+        public List<Transaccion> Transacciones { get; set; }
         public bool Bloqueada { get; set; }
 
         private Cuenta()
@@ -20,13 +21,19 @@ namespace Ej1Progra.Logic
         public Cuenta(string pCuentaId, double? pCredito)
         {
             CuentaId = pCuentaId;
-            Transacciones = new List<string>();
+            Transacciones = new List<Transaccion>();
             Bloqueada = false;
 
-            if (pCredito == null)
+            if (pCredito == null) 
                 Credito = 100000;
             else
-                Credito = pCredito;
+                Credito = (double)pCredito;
+
+            Saldo = Credito;
+        }
+        public void addTransaccion(Transaccion pObjTransaccion)
+        {
+            Transacciones.Add(pObjTransaccion);
         }
 
     }
