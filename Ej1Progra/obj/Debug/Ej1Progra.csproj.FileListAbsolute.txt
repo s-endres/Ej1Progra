@@ -1,0 +1,12 @@
+c:\users\developer\documents\visual studio 2015\Projects\Ej1Progra\Ej1Progra\bin\Debug\Ej1Progra.exe.config
+c:\users\developer\documents\visual studio 2015\Projects\Ej1Progra\Ej1Progra\bin\Debug\Ej1Progra.exe
+c:\users\developer\documents\visual studio 2015\Projects\Ej1Progra\Ej1Progra\bin\Debug\Ej1Progra.pdb
+c:\users\developer\documents\visual studio 2015\Projects\Ej1Progra\Ej1Progra\obj\Debug\Ej1Progra.csprojResolveAssemblyReference.cache
+c:\users\developer\documents\visual studio 2015\Projects\Ej1Progra\Ej1Progra\obj\Debug\Ej1Progra.exe
+c:\users\developer\documents\visual studio 2015\Projects\Ej1Progra\Ej1Progra\obj\Debug\Ej1Progra.pdb
+C:\Users\Sfec\Desktop\Ej1Progra\Ej1Progra\bin\Debug\Ej1Progra.exe.config
+C:\Users\Sfec\Desktop\Ej1Progra\Ej1Progra\obj\Debug\Ej1Progra.exe
+C:\Users\Sfec\Desktop\Ej1Progra\Ej1Progra\obj\Debug\Ej1Progra.pdb
+C:\Users\Sfec\Desktop\Ej1Progra\Ej1Progra\bin\Debug\Ej1Progra.exe
+C:\Users\Sfec\Desktop\Ej1Progra\Ej1Progra\bin\Debug\Ej1Progra.pdb
+C:\Users\Sfec\Desktop\Ej1Progra\Ej1Progra\obj\Debug\Ej1Progra.csprojResolveAssemblyReference.cache
